@@ -1,4 +1,6 @@
 using Registro_Jugadores_TicTac1.Components;
+using RegistroJugadores.DAL;
+using Microsoft.EntityFrameworkCore;
 
 namespace Registro_Jugadores_TicTac1
 {
@@ -11,6 +13,11 @@ namespace Registro_Jugadores_TicTac1
             // Add services to the container.
             builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
+
+
+            var ConStr = builder.Configuration.GetConnectionString("SqlConstr");
+
+            builder.Services.AddDbContext<Contexto>(o => o.UseSqlServer(ConStr));
 
             var app = builder.Build();
 
