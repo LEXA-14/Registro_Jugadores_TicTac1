@@ -1,0 +1,96 @@
+@page "/Jugadores/Index"
+
+@inject JugadoresServicios jugadoresServices
+@inject NavigationManager navigationManager
+@using RegistroJugadores.Models;
+
+<PageTitle> Registro de Jugadores de Tic Tac Toe</PageTitle>
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header space-between">
+            <h5 class="card-title">Registro de Jugadores</h5>
+            <a href="/Jugadores/Create" class="btn btn-primary"><span class="bi bi-plus-square mt-3"></span>Crear</a>
+       </div>
+        <div class="card-body"> 
+            @*Search and filter*@
+            <div class="row" mb-3>
+                <div class="col-md-6">
+                    <label>Filtro:</label>
+                    <select @bind="Filtro" class="form-select">
+                        <option value="">Seleccione un filtro</option>
+                        <option value="Mayor">Mayor a Menor</option>
+                        <option value="Menor">Menor a Mayor</option>
+                    </select>
+                </div>
+                <div class="col-md-6">
+                    <label> Buscar:</label>
+                    <div class="input-group">
+                        <InputText class="form-control" @bind-Value="ValorFiltro"/>
+                        <button class="btn btn-info" @onclick="Buscar">Buscar</button>
+                    </div>
+                </div>
+            </div>
+            @*here *@
+           <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre</th>
+                        <th>Partidas</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var jugador in ListaJugadores)
+                    {
+                        <tr>
+                            <td>@jugador.JugadorId</td>
+                            <td>@jugador.Nombres</td>
+                            <td>@jugador.Partidas</td>
+                            <td>
+                                <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">Editar</a>
+                                <a href="/Jugadores/Delete/@jugador.JugadorId" class="btn btn-sm btn-danger">Eliminar</a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+@code{
+public List<Jugadores> ListaJugadores{get;set;}= new List<Jugadores>();
+
+    public string Filtro{get;set;}=string.Empty;
+    public string ValorFiltro{get;set;}=string.Empty;
+
+    protected override async Task OnInitializedAsync(){
+
+    ListaJugadores=await jugadoresServices.GetList(j=>true);
+   
+    }
+
+    private async Task Buscar(){
+
+    if (ValorFiltro.Trim()!=""){
+
+    if(Filtro=="Mayor"){
+
+    ListaJugadores= await jugadoresServices.JugadoresMayorAMenor();
+    }
+
+    else if(Filtro=="Menor"){
+
+    ListaJugadores= await jugadoresServices.JugadoresMenorAMayor();
+
+    }
+    }
+    
+
+    else{
+    ListaJugadores= await jugadoresServices.GetList(j=>true);
+    }
+    
+    }}
+    
+    

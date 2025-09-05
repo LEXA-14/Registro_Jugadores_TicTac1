@@ -1,0 +1,78 @@
+@page "/Jugadores/Create"
+@inject JugadoresServicios jugadoresServices
+@inject NavigationManager navigationManager
+@using RegistroJugadores.Models;
+@rendermode InteractiveServer
+
+
+                    @*HTML*@
+
+<PageTitle> Crear</PageTitle>
+<EditForm Model="Jugador" OnValidSubmit="Guardar">
+    @if (!string.IsNullOrEmpty(Mensaje))
+{
+    <div class="alert alert-danger" role="alert">
+        @Mensaje
+    </div>
+}
+    <DataAnnotationsValidator/>
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h5 class="card-title">Crear Jugador</h5>
+            </div>
+            <div class="card-body">
+
+                @*JugadorID*@
+                <div class="mb-3">
+                    <label class="form-label"><strong>Jugador ID</strong></label>
+                    <InputNumber class="form-control" @bind-Value="Jugador.JugadorId" readonly></InputNumber>
+                </div>
+                @*Nombres*@
+
+                <div class="mb-3">
+                    <label class="form-label"><strong>Nombres</strong></label>
+                    <InputText class="form-control" @bind-Value="Jugador.Nombres"></InputText>
+                    <ValidationMessage For="()=>Jugador.Nombres"/>
+                </div>
+                @*partidas*@
+                <div class="mb-3">
+                    <label class="form-label"><strong>Partidas</strong></label>
+                    <InputNumber class="form-control" @bind-Value="Jugador.Partidas"></InputNumber>
+                    <ValidationMessage For="()=>Jugador.Partidas"/>
+                </div>
+
+            </div>
+            @*footer*@
+            <div class="card-footer text-center mt-2">
+                <a href="/Jugadores/Index" class="btn btn-secondary"><span class="bi bi-arrow-left"></span>Volver</a>
+                <button type="submit" class="btn btn-primary bi bi-floppy">Guardar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
+
+@code{
+public Jugadores Jugador{get;set;}=new Jugadores{
+JugadorId=0,
+Nombres=string.Empty};
+
+public string Mensaje{get;set;}=string.Empty;
+
+public async Task Guardar(){
+try{
+  var creado= await jugadoresServices.Registrar(Jugador);
+if(creado)
+{  navigationManager.NavigateTo("/Jugadores/Index");
+} 
+else{
+Mensaje="No se pudo guardar Correctamente";
+}
+
+}
+catch(InvalidOperationException ex){
+Mensaje=ex.Message;
+}
+}
+}

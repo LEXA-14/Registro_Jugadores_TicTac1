@@ -1,17 +1,19 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace RegistroJugadores.Models;
-
-public class Jugadores
+namespace RegistroJugadores.Models
 {
-    [Key]
-    public int JugadorId { get; set; }
 
-    [Required(ErrorMessage="Este campo es requerido")]
+    public class Jugadores
+    {
+        [Key]
+        public int JugadorId { get; set; }
 
-    public required string Nombres { get; set; }
-    [Required(ErrorMessage = "Este campo es requerido")]
+        [Required(ErrorMessage = "Este campo es requerido")]
 
-    public int Partidas { get; set; }
+        public required string Nombres { get; set; }
+        [Required(ErrorMessage = "Este campo es requerido")]
 
+        public int Partidas { get; set; }
+
+    }
 }

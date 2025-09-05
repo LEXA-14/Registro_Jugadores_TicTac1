@@ -1,25 +1,31 @@
 using Registro_Jugadores_TicTac1.Components;
 using RegistroJugadores.DAL;
 using Microsoft.EntityFrameworkCore;
+using RegistroJugadoresServices;
 
-namespace Registro_Jugadores_TicTac1
+
+var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            var builder = WebApplication.CreateBuilder(args);
+    ContentRootPath = AppContext.BaseDirectory,
+    WebRootPath = Path.Combine(AppContext.BaseDirectory, "wwwroot")
+});
+//var builder = WebApplication.CreateBuilder(args);
+//builder.WebHost.UseWebRoot(Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
 
-            // Add services to the container.
-            builder.Services.AddRazorComponents()
+
+// Add services to the container.
+builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-
+            //constructor para el contexto
             var ConStr = builder.Configuration.GetConnectionString("SqlConstr");
-
-            builder.Services.AddDbContext<Contexto>(o => o.UseSqlServer(ConStr));
+            //contexto 
+            builder.Services.AddDbContextFactory<Contexto>(o => o.UseSqlServer(ConStr));
+            //inyeccion
+            builder.Services.AddScoped<JugadoresServicios>();
 
             var app = builder.Build();
+
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -38,6 +44,6 @@ namespace Registro_Jugadores_TicTac1
                 .AddInteractiveServerRenderMode();
 
             app.Run();
-        }
-    }
-}
+        
+    
+
