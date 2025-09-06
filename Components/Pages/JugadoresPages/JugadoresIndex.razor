@@ -8,7 +8,7 @@
 <div class="container">
     <div class="card shadow-lg">
         <div class="card-header space-between">
-            <h5 class="card-title">Registro de Jugadores</h5>
+            <h5 class="card-title">Index de Jugadores</h5>
             <a href="/Jugadores/Create" class="btn btn-primary"><span class="bi bi-plus-square mt-3"></span>Crear</a>
        </div>
         <div class="card-body"> 
@@ -16,23 +16,23 @@
             <div class="row" mb-3>
                 <div class="col-md-6">
                     <label>Filtro:</label>
-                    <select @bind="Filtro" class="form-select">
-                        <option value="">Seleccione un filtro</option>
+                    <InputSelect class="form-select" @bind-value="Filtro" >
+                        <option value="" selected disabled>Seleccione un filtro&oacute;n</option>
                         <option value="Mayor">Mayor a Menor</option>
                         <option value="Menor">Menor a Mayor</option>
-                    </select>
+                    </InputSelect>
                 </div>
                 <div class="col-md-6">
                     <label> Buscar:</label>
                     <div class="input-group">
-                        <InputText class="form-control" @bind-Value="ValorFiltro"/>
-                        <button class="btn btn-info" @onclick="Buscar">Buscar</button>
+                        <input class="form-control" @bind="ValorFiltro" placeholder="Buscar"/>
+                        <button type="button" class="btn btn-outline-primary bi bi-search" @onclick="Buscar"></button>
                     </div>
                 </div>
             </div>
             @*here *@
            <table class="table table-hover">
-                <thead>
+                <thead
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -49,7 +49,7 @@
                             <td>@jugador.Partidas</td>
                             <td>
                                 <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">Editar</a>
-                                <a href="/Jugadores/Delete/@jugador.JugadorId" class="btn btn-sm btn-danger">Eliminar</a>
+                                <button class="btn btn-sm btn-danger" @onclick="()=>EliminarJugador(jugador.JugadorId)">Eliminar</button>
                             </td>
                         </tr>
                     }
@@ -72,9 +72,21 @@ public List<Jugadores> ListaJugadores{get;set;}= new List<Jugadores>();
 
     private async Task Buscar(){
 
-    if (ValorFiltro.Trim()!=""){
+    if (!string.IsNullOrWhiteSpace(ValorFiltro)){
 
-    if(Filtro=="Mayor"){
+    ListaJugadores= await jugadoresServices.GetList(j=>j.Nombres!.ToLower().Contains(ValorFiltro.ToLower()));
+    }
+    else{
+    ListaJugadores=await jugadoresServices.GetList(j=>true);
+    }
+    }
+
+    private async Task AplicarFiltro(){
+
+    @*var jugadores=jugadores.Where(j=>j.Nombres!.ToLower().Contains())*@
+
+
+    if(Filtro=="Mayor a Menor"){
 
     ListaJugadores= await jugadoresServices.JugadoresMayorAMenor();
     }
@@ -83,14 +95,23 @@ public List<Jugadores> ListaJugadores{get;set;}= new List<Jugadores>();
 
     ListaJugadores= await jugadoresServices.JugadoresMenorAMayor();
 
-    }
-    }
-    
-
-    else{
+    }else
     ListaJugadores= await jugadoresServices.GetList(j=>true);
     }
     
-    }}
+    }
+    }
+    private async Task EliminarJugador(int JugadorId){
+
+    var eliminado=await jugadoresServices.Eliminar(JugadorId);
+
+    if(eliminado){
+    ListaJugadores=await jugadoresServices.GetList(j=>true);
+
+    }
+    }
+
+    }
+    }
     
     

@@ -41,9 +41,9 @@ namespace RegistroJugadoresServices
 
         public async Task<List<Jugadores>> JugadoresMenorAMayor()
         {
-            await using var contexto =await DbFactory.CreateDbContextAsync();
+            await using var contexto = await DbFactory.CreateDbContextAsync();
 
-            return await contexto.Jugadores.OrderBy(J=> J.Partidas).ToListAsync();
+            return await contexto.Jugadores.OrderBy(J => J.Partidas).ToListAsync();
         }
 
         public async Task<List<Jugadores>> JugadoresMayorAMenor()
@@ -53,12 +53,35 @@ namespace RegistroJugadoresServices
             return await contexto.Jugadores.OrderByDescending(J => J.Partidas).ToListAsync();
         }
 
-        public async Task<List<Jugadores>>GetList(Expression<Func<Jugadores,bool>> criterio)
+        public async Task<List<Jugadores>> GetList(Expression<Func<Jugadores, bool>> criterio)
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
             return await contexto.Jugadores.Where(criterio).ToListAsync();
         }
+        //modificar, buscar y eliminar
 
+        public async Task<Jugadores?> Buscar(int JugadorId)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            return await contexto.Jugadores
+                .AsNoTracking()
+                .FirstOrDefaultAsync(j => j.JugadorId == JugadorId);
+        }
+
+        public async Task<bool> Modificar(Jugadores jugador)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            contexto.Update(jugador);
+            return await contexto.SaveChangesAsync() > 0;
+        }
+
+        public async Task<bool> Eliminar(Jugadores jugador)
+        {
+            await using var contexto = await DbFactory.CreateDbContextAsync();
+            contexto.Remove(jugador);
+            return await contexto.SaveChangesAsync() > 0;
+
+        }
     }
 }
 
