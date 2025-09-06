@@ -66,13 +66,13 @@ else
     {
         if (JugadorId > 0)
         {
-            Jugador = await jugadoresServices.Buscar(JugadorId);
+            Jugador = await jugadoresServices.BuscarId(JugadorId);
         }
     }
 
     private async Task Modificar()
     {
-        if(Jugador is not null)
+        if(Jugador != null)
         {
             var exito = await jugadoresServices.Modificar(Jugador);
             if(exito)
@@ -84,9 +84,9 @@ else
 
     private async Task Eliminar()
     {
-        if(Jugador is not null)
+        if(Jugador != null)
         {
-            var exito = await jugadoresServices.Eliminar(Jugador);
+            var exito = await jugadoresServices.Eliminar(Jugador.JugadorId);
             if(exito)
             {
                 navigationManager.NavigateTo("/Jugadores/Index");

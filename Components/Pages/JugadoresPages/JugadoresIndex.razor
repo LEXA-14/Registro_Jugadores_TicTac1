@@ -3,36 +3,42 @@
 @inject JugadoresServicios jugadoresServices
 @inject NavigationManager navigationManager
 @using RegistroJugadores.Models;
+@rendermode InteractiveServer
 
-<PageTitle> Registro de Jugadores de Tic Tac Toe</PageTitle>
+<PageTitle>Registro de Jugadores de Tic Tac Toe</PageTitle>
+
 <div class="container">
     <div class="card shadow-lg">
-        <div class="card-header space-between">
-            <h5 class="card-title">Index de Jugadores</h5>
-            <a href="/Jugadores/Create" class="btn btn-primary"><span class="bi bi-plus-square mt-3"></span>Crear</a>
-       </div>
-        <div class="card-body"> 
+        <div class="card-header d-flex justify-content-between align-items-center">
+            <h5 class="card-title mb-0">Index de Jugadores</h5>
+            <a href="/Jugadores/Create" class="btn btn-primary"><span class="bi bi-plus-square"></span>Crear</a>
+        </div>
+        <div class="card-body">
             @*Search and filter*@
-            <div class="row" mb-3>
+            <div class="row mb-3">
                 <div class="col-md-6">
                     <label>Filtro:</label>
-                    <InputSelect class="form-select" @bind-value="Filtro" >
-                        <option value="" selected disabled>Seleccione un filtro&oacute;n</option>
+                    <InputSelect class="form-select" @bind-value="Filtro" @onchange="AplicarFiltro">
+                        <option value="">Seleccione un filtro</option>
                         <option value="Mayor">Mayor a Menor</option>
                         <option value="Menor">Menor a Mayor</option>
+                       
                     </InputSelect>
+                     <button class="btn btn-outline-secondary" @onclick="AplicarFiltro"> Aplicar Filtro</button>
                 </div>
                 <div class="col-md-6">
-                    <label> Buscar:</label>
+                    <label>Buscar:</label>
                     <div class="input-group">
                         <input class="form-control" @bind="ValorFiltro" placeholder="Buscar"/>
-                        <button type="button" class="btn btn-outline-primary bi bi-search" @onclick="Buscar"></button>
+                        <button type="button" class="btn btn-outline-primary bi bi-search" @onclick="Buscar">
+                            <i class="bi bi-search"></i>Buscar
+                        </button>
                     </div>
                 </div>
             </div>
             @*here *@
-           <table class="table table-hover">
-                <thead
+            <table class="table table-hover">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
@@ -49,11 +55,11 @@
                             <td>@jugador.Partidas</td>
                             <td>
                                 <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">
-                                <i class="bi bi-pencil"></i></a>
-
+                                    Editar <i class="bi bi-pencil"></i>
+                                </a>
                                 <button class="btn btn-sm btn-danger" @onclick="()=>EliminarJugador(jugador.JugadorId)">
-                                <i class="bi bi-trash"></i></button>
-
+                                    Eliminar <i class="bi bi-trash"></i>
+                                </button>
                             </td>
                         </tr>
                     }
@@ -62,60 +68,60 @@
         </div>
     </div>
 </div>
+
 @code{
-public List<Jugadores> ListaJugadores{get;set;}= new List<Jugadores>();
+    public List<Jugadores> ListaJugadores { get; set; } = new List<Jugadores>();
+    public string Filtro { get; set; } = string.Empty;
+    public string ValorFiltro { get; set; } = string.Empty;
 
-    public string Filtro{get;set;}=string.Empty;
-    public string ValorFiltro{get;set;}=string.Empty;
-
-    protected override async Task OnInitializedAsync(){
-
-    ListaJugadores=await jugadoresServices.GetList(j=>true);
+    protected override async Task OnInitializedAsync()
+    {
+        ListaJugadores=await jugadoresServices.GetList(j=>j.JugadorId>0);
+    }
+    
    
+    private async Task AplicarFiltro()
+    {
+      
+        var jugadores = await jugadoresServices.GetList(j => true);
+        
+        if (Filtro == "Mayor")
+        {
+            ListaJugadores = await jugadoresServices.JugadoresMayorAMenor();
+        }
+        else if (Filtro == "Menor")
+        {
+            ListaJugadores = await jugadoresServices.JugadoresMenorAMayor();
+        }
+        else
+        {
+   
+
+          
+            ListaJugadores = jugadores;
+        }
     }
 
     private async Task Buscar(){
 
-    if (!string.IsNullOrWhiteSpace(ValorFiltro)){
+    var jugadores=await jugadoresServices.GetList(j=>true);
 
-    ListaJugadores= await jugadoresServices.GetList(j=>j.Nombres!.ToLower().Contains(ValorFiltro.ToLower()));
+    if(!string.IsNullOrWhiteSpace(ValorFiltro)){
+    jugadores = jugadores.Where(j => j.Nombres!.ToLower().Contains(ValorFiltro.ToLower())).ToList();
     }
-    else{
-    ListaJugadores=await jugadoresServices.GetList(j=>true);
-    }
-    }
-
-    private async Task AplicarFiltro(){
-
-    @*var jugadores=jugadores.Where(j=>j.Nombres!.ToLower().Contains())*@
-
-
-    if(Filtro=="Mayor a Menor"){
-
-    ListaJugadores= await jugadoresServices.JugadoresMayorAMenor();
-    }
-
-    else if(Filtro=="Menor"){
-
-    ListaJugadores= await jugadoresServices.JugadoresMenorAMayor();
-
-    }else
-    ListaJugadores= await jugadoresServices.GetList(j=>true);
+    ListaJugadores=jugadores;
     }
     
-    }
-    }
-    private async Task EliminarJugador(int JugadorId){
+    private async Task EliminarJugador(int JugadorId)
+    {
+        var eliminado = await jugadoresServices.Eliminar(JugadorId);
 
-    var eliminado=await jugadoresServices.Eliminar(JugadorId);
-
-    if(eliminado){
-    ListaJugadores=await jugadoresServices.GetList(j=>true);
-
+        if (eliminado)
+        {
+           
+            ListaJugadores=await jugadoresServices.GetList(j=>j.JugadorId>0);
+        }
     }
-    }
-
-    }
-    }
+}
     
     
