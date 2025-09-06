@@ -48,8 +48,12 @@
                             <td>@jugador.Nombres</td>
                             <td>@jugador.Partidas</td>
                             <td>
-                                <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">Editar</a>
-                                <button class="btn btn-sm btn-danger" @onclick="()=>EliminarJugador(jugador.JugadorId)">Eliminar</button>
+                                <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">
+                                <i class="bi bi-pencil"></i></a>
+
+                                <button class="btn btn-sm btn-danger" @onclick="()=>EliminarJugador(jugador.JugadorId)">
+                                <i class="bi bi-trash"></i></button>
+
                             </td>
                         </tr>
                     }
