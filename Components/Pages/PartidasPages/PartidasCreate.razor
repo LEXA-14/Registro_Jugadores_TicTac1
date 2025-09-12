@@ -1,5 +1,114 @@
-﻿<h3>PartidasCreate</h3>
+﻿@page "/Partidas/Create"
+
+@inject PartidasServices partidasServices
+@inject JugadoresServicios jugadoresServices
+@inject NavigationManager navigationManager
+@using RegistroJugadores.Models;
+@using Registro_Jugadores_TicTac1.Models
+@using Registro_Jugadores_TicTac1.Services
+@rendermode InteractiveServer
+
+<PageTitle>Crear Partida</PageTitle>
+<EditForm Model="Partidas" OnvalidSubmit="Guardar">
+    <DataAnnotationsValidator/>
+
+    <div class="container">
+        <div class="card shadow-lg">
+            <div class="card-header text-center">
+                <h5 class="card-title"> Crear Partida</h5>
+
+            </div>
+            <div class="card-body">
+
+                <div class="mb-3">
+                    @*JUGADOR 1*@
+                    <label class="form-label"><strong>Partida</strong></label>
+                    <InputSelect class="form-control form-select" @bind-Value="Partidas.Jugador1Id">
+                        <option>Elija una opci&oacute;n</option>
+                        @foreach(var jugador in ListaJugadores){
+                            <option value="@jugador.JugadorId">@jugador.Nombres</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="(()=>Partidas.Jugador1Id)"/>
+                </div>
+                @*Jugador 2*@
+                <InputSelect class="form-control form-select" @bind-Value="Partidas.Jugador2Id">
+                    <option>Eliga una opci&oacute;</option>
+                    @foreach(var jugador2 in ListaJugadores){
+                        <option value="@jugador2.JugadorId">@jugador2.Nombres</option>
+                    }
+                    @*Estado de la Partida*@
+                </InputSelect>
+                <InputSelect class="form-control form-select" @bind-Value="Partidas.EstadoPartida">
+                    <option> Eliga una opci&oacute;n</option>
+                    <option>Solicitada</option>
+                    <option>En Proceso</option>
+                    <option>Completada</option>
+                </InputSelect>
+                <ValidationMessage For="(()=>Partidas.EstadoPartida)"/>
+
+            </div>
+            @*Ganador Id*@
+            <div class-mb-3>
+                <label class="form-label"><strong>GanadorId</strong> </label>
+                <InputSelect class="form-control form-select" @bind-Value=Partidas.GanadorId disable="@(Partidas.EstadoPartida!="Completada")">
+                    <option value="0">Elija una opci&oacute;n</option>
+                    @if (Partidas.Jugador1Id != 0)
+                    {
+                        <option value="@Partidas.Jugador1">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==Partidas.Jugador1Id)?.Nombres</option>
+                    }
+                    if(Partidas.Jugador2Id !=0){
+                    <option value="@Partidas.Jugador2Id">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==Partidas.Jugador2Id)?.Nombres</option>
+                    }
+
+                </InputSelect>
+                @*Turno Jugador Id*@
+                <div class-"mb-3">
+                    <label class="form-check label"><strong>Turno Jugador Id</strong></label>
+                    <InputSelect class="form-control form-select" @bind-Value=Partidas.TurnoJugadorId>
+                        <option value="@Partidas.Jugador1">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==Partidas.Jugador1Id)</option>
+                        <option value="@Partidas.Jugador2">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==Partidas.Jugador2Id)</option>
+                    </InputSelect>
+                </div>
+            </div>
+            <div class="card-footer text-end">
+
+                <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+        </div>
+    </div>
+</EditForm>
 
 @code {
+    public Partidas Partidas { get; set; } = new Partidas();
+    public List<Jugadores> ListaJugadores{ get; set; } = new List<Jugadores>();
+    public string errorMessage { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaJugadores = await jugadoresServices.GetList(j => true);
+
+    }
+
+    //guardar
+
+    public async Task Guardar()
+    {
+        var jugador1 = ListaJugadores.FirstOrDefault(jugador1 => jugador1.JugadorId == Partidas.Jugador1Id);
+        var jugador2 = ListaJugadores.FirstOrDefault(jugador2 => jugador2.JugadorId == Partidas.Jugador2Id);
+
+        var creado = await partidasServices.Registrar(Partidas,jugador1,jugador2);
+
+        if (creado)
+        {
+            
+            navigationManager.NavigateTo("/Partidas/Index");
+
+        }
+        else
+        {
+            errorMessage=("No se pudo Guardar Correctamente");
+        }
+    }
 
 }

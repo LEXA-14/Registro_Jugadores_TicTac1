@@ -48,19 +48,28 @@ public class PartidasServices(IDbContextFactory<Contexto> DbFactory)
     }
 
     //Modificar
-    private async Task<bool>Modificar(Partidas partidas)
+    public async Task<bool>Modificar(Partidas partidas)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         contexto.Update(partidas);
         return await contexto.SaveChangesAsync() > 0;
     }
     //Listar
-    private async Task<List<Partidas>> GetListPartidas(Expression<Func<Partidas, bool>> criterio)
+    public async Task<List<Partidas>> GetListPartidas(Expression<Func<Partidas, bool>> criterio)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
         return await contexto.Partidas.Where(criterio).ToListAsync();
 
     }
+    //Eliminar
+    public async Task<bool>Eliminar(int PartidaId)
+    {
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+        return await contexto.Partidas.Where(p => p.PartidaId == PartidaId).ExecuteDeleteAsync() > 0;
+    }
+    
+
+    
 
     
 

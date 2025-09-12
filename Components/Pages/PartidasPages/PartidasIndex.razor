@@ -1,5 +1,166 @@
-﻿<h3>PartidasIndex</h3>
+﻿@page "/Partidas/Index"
+@inject PartidasServices partidasServices
+@inject NavigationManager navigationManager
+@using Registro_Jugadores_TicTac1.Models;
+@using Registro_Jugadores_TicTac1.Services
+@rendermode InteractiveServer
+
+
+<PageTitle>Registro de Partidas</PageTitle>
+<div class="container">
+    <div class="card shadow-lg">
+        <div class="card-header space-between">    
+            <div class="cardcard-title"></div>
+            <h5 class="card-title">Registro de Partidas</h5>
+            <a href="/Paginas/Create" class="btn btn-primary"><span class="bi bi-plus-square-mt-3"></span>Crear</a>
+        </div>
+        <div class="card-body">
+
+            <div class="row">
+
+                <div class="col-3">
+                    <label class="col-form-label"><strong>Filtrar por</strong></label>
+                </div>
+
+                <div class="col-4">
+                    <label class="col-form-label"><strong>B&uacute;squeda</strong></label>
+                </div>
+
+                <div class="row align-items-center">
+                    <div class="col-3">
+                        <InputSelect class="form-select"@bind-Value="Filtro">
+                            <option value=""selected disabled>Selecciona una opci&oacute;n</option>
+                            <option value="EstadoPartida"EstadoPartida</option>
+
+
+                        </InputSelect>
+                    </div>
+
+                    <div class="col-4">
+                        <div class="input-group">
+                            <input class="form-control" @bind="ValorFiltro" placeholder="Buscar"/>
+                            <button type="button" class="btn btn-outline-primary bi bi-search" @onclick=Buscar></button>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-hover">
+                    <thead class="table table-striped text-black">
+                        <tr>
+                            <th>PartidaId</th>
+                            <th>Jugador 1 Id</th>
+                            <th>Jugador 2 Id</th>
+                            <th>Estado de la partida</th>
+                            <th>Ganador Id</th>
+                            <th>Turno Jugador Id</th>
+                            <th>Estado del Tablero</th>
+                            <th>Fecha de Inicio</th>
+                            <th>Fecha final</th>
+                            @* Falta manejar los InputDates para la fecha y 
+                         el metodo Buscar cuando se definan mejor los filtros y sus valores*@
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach(var partida in ListaPartidas)
+                        {
+                            <tr>
+                                <td>@partida.PartidaId</td>
+                                <td>@partida.Jugador1</td>
+                                <td>@partida.Jugador2</td>
+                                <td>@partida.EstadoPartida</td>
+                                <td>@partida.GanadorId</td>
+                                <td>@partida.TurnoJugadorId</td>
+                                <td>@partida.EstadoTablero</td>
+                                <td>@partida.FechaInicio</td>
+                                <td>@partida.FechaFin</td>
+
+
+                                <td class="text-center">
+                                    <a href="/Partidas/Edit/@partida.PartidaId" class="btn btn-outline-primary bi bi-pencil-square"></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+
+            </div>
+            <div class="card-footer space-between">
+                <label>Total: @ListaPartidas.Count()</label>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
 
 @code {
+    public List<Partidas> ListaPartidas { get; set; } = new List<Partidas>();
 
+    public string Filtro { get; set; } = string.Empty;
+    public string ValorFiltro { get; set; } = string.Empty;
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaPartidas = await partidasServices.GetListPartidas(p => p.PartidaId > 0);
+    }
+
+    //Buscar
+    public async Task Buscar()
+    {
+        if (string.IsNullOrWhiteSpace(ValorFiltro))
+        {
+            ListaPartidas = await partidasServices.GetListPartidas(p => true);
+            return;
+        }
+
+        switch (Filtro)
+        {
+            case "PartidaId":
+                if (int.TryParse(ValorFiltro, out int id))
+                {
+                    ListaPartidas = await partidasServices.GetListPartidas(p => p.PartidaId == id);
+                }
+                else
+                {
+                    ListaPartidas.Clear();
+                }
+                break;
+
+            case "EstadoPartida":
+                ListaPartidas = await partidasServices.GetListPartidas(p => p.EstadoPartida != null && p.EstadoPartida.ToLower().Contains(ValorFiltro.ToLower()));
+                break;
+
+            case "Jugador1Id":
+                if (int.TryParse(ValorFiltro, out int jugador1Id))
+                {
+                    ListaPartidas = await partidasServices.GetListPartidas(p => p.Jugador1Id == jugador1Id);
+                }
+                break;
+
+            case "Jugador2Id":
+                if (int.TryParse(ValorFiltro, out int jugador2Id)){
+                    ListaPartidas = await partidasServices.GetListPartidas(partidasServices => partidasServices.Jugador2Id == jugador2Id);
+                }
+                break;
+
+            case"GanadorId":
+                if(int.TryParse(ValorFiltro,out int ganadorId))
+                {
+                    ListaPartidas = await partidasServices.GetListPartidas(p => p.GanadorId == ganadorId);
+                }
+                break;
+
+            case "TurnoJugadorId":
+                if(int.TryParse(ValorFiltro,out int turnoJugadorId))
+                {
+                    ListaPartidas = await partidasServices.GetListPartidas(p => p.TurnoJugadorId == turnoJugadorId);
+                }
+                break;
+
+            
+            
+            }
 }
+
+    }
+
