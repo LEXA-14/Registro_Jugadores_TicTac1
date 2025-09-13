@@ -10,7 +10,7 @@ using RegistroJugadores.DAL;
 
 namespace Registro_Jugadores_TicTac1.Migrations
 {
-    [DbContext(typeof(Contexto))]
+    [DbContext(typeof(contexto))]
     [Migration("20250904023130_Inicial")]
     partial class Inicial
     {

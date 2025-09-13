@@ -8,7 +8,7 @@ using RegistroJugadores.Models;
 namespace RegistroJugadoresServices
 {
 
-    public class JugadoresServicios(IDbContextFactory<Contexto> DbFactory)
+    public class JugadoresServicios(IDbContextFactory<contexto> DbFactory)
     {
         public async Task<bool> Registrar(Jugadores jugador)
         {
