@@ -12,7 +12,7 @@
         <div class="card-header space-between">    
             <div class="cardcard-title"></div>
             <h5 class="card-title">Registro de Partidas</h5>
-            <a href="/Paginas/Create" class="btn btn-primary"><span class="bi bi-plus-square-mt-3"></span>Crear</a>
+            <a href="/Partidas/Create" class="btn btn-primary"><span class="bi bi-plus-square-mt-3"></span>Crear</a>
         </div>
         <div class="card-body">
 
@@ -30,7 +30,15 @@
                     <div class="col-3">
                         <InputSelect class="form-select"@bind-Value="Filtro">
                             <option value=""selected disabled>Selecciona una opci&oacute;n</option>
-                            <option value="EstadoPartida"EstadoPartida</option>
+                            <option value="EstadoPartida">EstadoPartida</option>
+                            <option value="PartidaId">Partida ID</option>
+                            <option value="Jugador1Id">Jugador 1 ID</option>
+                            <option value="Jugador2Id">Jugador 2 ID</option>
+                            <option value="GanadorId">Ganador ID</option>
+                            <option value="TurnoJugadorId">Turno Jugador ID</option>
+                            <option value="Jugador1Nombre"> Jugador 1 (Nombre)</option>
+                            <option value="Jugador2Nombre"> Jugador 2 (Nombre)</option>
+                            <option value="GanadorNombre">Ganador (Nombre)</option>
 
 
                         </InputSelect>
@@ -55,8 +63,7 @@
                             <th>Estado del Tablero</th>
                             <th>Fecha de Inicio</th>
                             <th>Fecha final</th>
-                            @* Falta manejar los InputDates para la fecha y 
-                         el metodo Buscar cuando se definan mejor los filtros y sus valores*@
+                          
                         </tr>
                     </thead>
                     <tbody>
@@ -64,8 +71,8 @@
                         {
                             <tr>
                                 <td>@partida.PartidaId</td>
-                                <td>@partida.Jugador1</td>
-                                <td>@partida.Jugador2</td>
+                                <td>@partida.Jugador1?.Nombres</td>
+                                <td>@partida.Jugador2?.Nombres</td>
                                 <td>@partida.EstadoPartida</td>
                                 <td>@partida.GanadorId</td>
                                 <td>@partida.TurnoJugadorId</td>
@@ -157,9 +164,29 @@
                 }
                 break;
 
+            case "Judador1Nombre":
+
+                ListaPartidas = await partidasServices.GetListPartidas(p => p.Jugador1.Nombres.ToLower().Contains(ValorFiltro));
+
+                break;
+
             
-            
-            }
+         case "Judador2Nombre":
+
+            ListaPartidas = await partidasServices.GetListPartidas(p => p.Jugador2.Nombres.ToLower().Contains(ValorFiltro));
+
+            break;
+
+         case "GanadorNombre":
+
+                ListaPartidas = await partidasServices.GetListPartidas(p => p.Ganador.Nombres.ToLower().Contains(ValorFiltro));
+
+                break;
+
+        }
+
+        }
+
 }
 
     }

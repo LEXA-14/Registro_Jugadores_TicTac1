@@ -6,19 +6,16 @@ using Registro_Jugadores_TicTac1.Models;
 
 namespace Registro_Jugadores_TicTac1.Services;
 
-public class PartidasServices(IDbContextFactory<Contexto> DbFactory)
+public class PartidasServices(IDbContextFactory<contexto> DbFactory)
 {
     //Crear Partida
-    public async Task<bool>Registrar(Partidas partidas,Jugadores jugador1,Jugadores jugador2)
+    public async Task<bool>Registrar(Partidas partidas)
     {
-        if (jugador1 == null)
-        {
-            return false;
-        }
-        else if(await DiferenciaJ1_J2(jugador1, jugador2))
-        {
-           return await Insertar(partidas);
+      
 
+        if (partidas.Jugador1Id != 0 && partidas.Jugador1Id != partidas.Jugador2Id)
+        {
+            return await Insertar(partidas);
         }
         return false;
     }
@@ -35,17 +32,6 @@ public class PartidasServices(IDbContextFactory<Contexto> DbFactory)
     }
     
 
-    //QUE EL JUGADOR 1 Y EL JUGADOR 2 SEAN DIFERENTES
-
-    private async Task<bool> DiferenciaJ1_J2(Jugadores jugador1, Jugadores jugador2)
-    {
-        if (jugador1.Nombres == jugador2.Nombres)
-        {
-            return false;
-        }
-        return true;
-
-    }
 
     //Modificar
     public async Task<bool>Modificar(Partidas partidas)
@@ -58,7 +44,7 @@ public class PartidasServices(IDbContextFactory<Contexto> DbFactory)
     public async Task<List<Partidas>> GetListPartidas(Expression<Func<Partidas, bool>> criterio)
     {
         await using var contexto = await DbFactory.CreateDbContextAsync();
-        return await contexto.Partidas.Where(criterio).ToListAsync();
+        return await contexto.Partidas.Include(p => p.Jugador1).Include(p=>p.Jugador2).Where(criterio).ToListAsync();
 
     }
     //Eliminar

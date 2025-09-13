@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Registro_Jugadores_TicTac1.Migrations
 {
     /// <inheritdoc />
-    public partial class InicialPartidas : Migration
+    public partial class InitialM : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,8 +38,7 @@ namespace Registro_Jugadores_TicTac1.Migrations
                         name: "FK_Partidas_Jugadores_Jugador1Id",
                         column: x => x.Jugador1Id,
                         principalTable: "Jugadores",
-                        principalColumn: "JugadorId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "JugadorId");
                     table.ForeignKey(
                         name: "FK_Partidas_Jugadores_Jugador2Id",
                         column: x => x.Jugador2Id,
@@ -49,8 +48,7 @@ namespace Registro_Jugadores_TicTac1.Migrations
                         name: "FK_Partidas_Jugadores_TurnoJugadorId",
                         column: x => x.TurnoJugadorId,
                         principalTable: "Jugadores",
-                        principalColumn: "JugadorId",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "JugadorId");
                 });
 
             migrationBuilder.CreateIndex(
