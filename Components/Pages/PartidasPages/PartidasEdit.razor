@@ -31,7 +31,7 @@
                 <div class="mb-3">
                     <label class="form-label"><strong>Jugador 1 Id</strong></label>
                     <InputSelect class="form-control form-select" @bind-Value="partidas.Jugador1Id">
-                        <option>Elige un Jugador 1</option>
+                        <option value="0">Elige un Jugador 1</option>
                         @foreach(var jugador in ListaJugadores)
                         {
                             <option value="@jugador.JugadorId">@jugador.Nombres</option>
@@ -43,7 +43,7 @@
                 <div class="mb-3">
                     <label class="form-label"><strong>Jugador 2 Id</strong></label>
                     <InputSelect class="form-control form-select" @bind-Value="partidas.Jugador2Id">
-                        <option>Elige Jugador 2</option>
+                        <option value="0" Elige Jugador 2</option>
                         @foreach(var jugador in ListaJugadores){
                             <option value="@jugador.JugadorId">@jugador.Nombres</option>
                         }
@@ -54,7 +54,7 @@
                 <div class="mb-3">
                     <label class="form-label"><strong>Estado de Partida</strong></label>
                     <InputSelect class="form-control form-select" @bind-Value="partidas.EstadoPartida">
-                        <option> Eliga una opci&oacute;n</option>
+                        <option value=""> Eliga una opci&oacute;n</option>
                         <option>Solicitada</option>
                         <option>En Proceso</option>
                         <option>Completada</option>
@@ -64,12 +64,11 @@
                 @*Ganador Id*@
                 <div class="mb-3">
                     <label class="form-label"><strong>Ganador Id</strong></label>
-                    <InputSelect class="form-check form-select" @bind-Value="partidas.GanadorId">
+                    <InputSelect class="form-control form-select" @bind-Value="partidas.GanadorId">
                         <option value="">Elija el Jugador</option>
-                        @foreach(var jugador in ListaJugadores)
-                        {
-                            <option value="@jugador.JugadorId">@jugador.Nombres</option>
-                        }
+                         <option value="@partidas.Jugador1Id">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==partidas.Jugador1Id)?.Nombres</option>
+                        <option value="@partidas.Jugador2Id">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==partidas.Jugador2Id)?.Nombres</option>
+                        
                     </InputSelect>
 
                 </div>
@@ -78,11 +77,11 @@
                 <div class="mb-3">
                     <label class="form-label"><strong>Turno Jugador Id</strong></label>
                     <InputSelect class="form-control form-select" @bind-Value="partidas.TurnoJugadorId">
-                        <option value="">Elija un </option>
-                        @foreach(var jugador in ListaJugadores)
-                        {
-                            <option value="@jugador.JugadorId">@jugador.Nombres</option>
-                        }
+                        <option value="">Elija un Jugador </option>
+                        <option value="@partidas.Jugador1Id">@ListaJugadores.FirstOrDefault(j => j.JugadorId == partidas.Jugador1Id)?.Nombres</option>
+                        <option value="@partidas.Jugador2Id">@ListaJugadores.FirstOrDefault(j => j.JugadorId == partidas.Jugador2Id)?.Nombres</option>
+
+                        
                     </InputSelect>
                 </div>
 
@@ -102,8 +101,10 @@
                     <a href="/Partida/Index" class="btn btn-secondary">
                         <span class="bi bi-arrow-left"> </span>Volver
                     </a>
-                    <button type="submit" class="btn btn-primary bi bi-save-me-1">Modificar</button>
-                    <button type="submit" class="btn btn-danger bi bi-trash" @onclick="Eliminar"></button>
+                    <button type="submit" class="btn btn-primary bi bi-save-me"><span class="bi bi-save"></span>Editar</button>
+                    <button type="button" class="btn btn-danger bi bi-trash" @onclick="Eliminar">
+                        <span class="bi bi-trash"></span>Eliminar
+                    </button>
                 </div>
 
 
@@ -122,6 +123,15 @@
 
     public Partidas partidas { get; set; } = new Partidas();
     public List<Jugadores> ListaJugadores { get; set; } = new List<Jugadores>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (PartidaId > 0)
+        {
+            partidas= await partidasServices.Buscar(PartidaId);
+            ListaJugadores = await jugadoresServices.GetList(j => j.JugadorId > 0);
+        }
+    }
 
     public async Task Modificar()
     {
@@ -144,7 +154,7 @@
 
         if (eliminado)
         {
-            navigationManager.NavigateTo("/Partida/Index");
+            navigationManager.NavigateTo("/Partidas/Index");
         }
         else
         {

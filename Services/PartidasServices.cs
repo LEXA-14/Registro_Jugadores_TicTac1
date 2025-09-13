@@ -53,6 +53,14 @@ public class PartidasServices(IDbContextFactory<contexto> DbFactory)
         await using var contexto = await DbFactory.CreateDbContextAsync();
         return await contexto.Partidas.Where(p => p.PartidaId == PartidaId).ExecuteDeleteAsync() > 0;
     }
+
+    //Buscar
+
+    public async Task<Partidas?>Buscar(int partidaId)
+    {
+        await using var contexto = await DbFactory.CreateDbContextAsync();
+        return await contexto.Partidas.FirstOrDefaultAsync(p => p.PartidaId == partidaId);
+    }
     
 
     

@@ -64,7 +64,7 @@
             <div class="mb-3">
                 <label class="form-label"><strong>GanadorId</strong> </label>
                 <InputSelect class="form-control form-select" @bind-Value=Partidas.GanadorId disable="@(Partidas.EstadoPartida!="Completada")">
-                    <option value="0">Elija una opci&oacute;n</option>
+                    <option value="">Elija una opci&oacute;n</option>
                     @if (Partidas.Jugador1Id != 0)
                     {
                         <option value="@Partidas.Jugador1Id">@ListaJugadores.FirstOrDefault(j=>j.JugadorId==Partidas.Jugador1Id)?.Nombres</option>
