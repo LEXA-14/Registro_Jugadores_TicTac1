@@ -1,4 +1,3 @@
-using Registro_Jugadores_TicTac1.Components;
 using RegistroJugadores.DAL;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -43,14 +42,14 @@ namespace RegistroJugadoresServices
         {
             await using var contexto = await DbFactory.CreateDbContextAsync();
 
-            return await contexto.Jugadores.OrderBy(J => J.Partidas).ToListAsync();
+            return await contexto.Jugadores.OrderBy(J => J.Victorias).ToListAsync();
         }
 
         public async Task<List<Jugadores>> JugadoresMayorAMenor()
         {
             using var contexto =await DbFactory.CreateDbContextAsync();
 
-            return await contexto.Jugadores.OrderByDescending(J => J.Partidas).ToListAsync();
+            return await contexto.Jugadores.OrderByDescending(J => J.Victorias).ToListAsync();
         }
 
         public async Task<List<Jugadores>> GetList(Expression<Func<Jugadores, bool>> criterio)
