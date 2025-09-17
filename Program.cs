@@ -1,5 +1,5 @@
 using Registro_Jugadores_TicTac1.Components;
-using RegistroJugadores.DAL;
+using Registro_Jugadores_TicTac1.DAL;
 using Microsoft.EntityFrameworkCore;
 using RegistroJugadoresServices;
 using Registro_Jugadores_TicTac1.Services;

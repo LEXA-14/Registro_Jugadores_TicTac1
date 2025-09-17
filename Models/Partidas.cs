@@ -1,4 +1,4 @@
-﻿using RegistroJugadores.Models;
+﻿using Registro_Jugadores_TicTac1.Models;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -40,5 +40,9 @@ public class Partidas
         [ForeignKey(nameof(TurnoJugadorId))]
         public virtual Jugadores TurnoJugador { get; set; }
 
-    
+    //[InverseProperty(nameof(Movimientos.Jugadores))]
+    [InverseProperty(nameof(Models.Movimientos.Partidas))]
+    public virtual ICollection<Movimientos> MovimientosPartidas{ get; set; }
+
+
 }
