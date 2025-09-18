@@ -1,9 +1,104 @@
 ﻿@page "/"
+@inject PartidasServices partidasServices
+@inject JugadoresServicios jugadoresServicios;
+@using Registro_Jugadores_TicTac1.Models
+@using Registro_Jugadores_TicTac1.DAL
+@using Microsoft.EntityFrameworkCore
+@using System.Linq.Expressions
+@using Registro_Jugadores_TicTac1.Services
+@rendermode InteractiveServer
 
-<PageTitle>Registro de jugadores de Tic Tac toe</PageTitle>
+@*Usar esto como Jugadores Seleccion / seleccionar jugador 1 y jugador 2 para iniciar partida y que guarde*@
+
+<PageTitle>Tic Tac Toe</PageTitle>
 
 <h1>Bienvenidos al Torneo</h1>
+<EditForm Model="partidas" OnValidSubmit="Guardar">
+    <DataAnnotationsValidator/>
 
-<p>
-    <a href="/Jugadores/Index">Ir al Index de Jugadores</a>
-</p>
+    <div class="container">
+        <div class="card-shadow-lg">
+            <div class="card-header text-center">
+                <h4>Bienvenidos al Torneo de Tic tac toe</h4>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="d-flex justify-content-around">
+                <label class="form-label"><strong>Jugador X</strong></label>
+                <InputSelect class="" selected disabled @bind-Value="partidas.Jugador1Id">
+                    @foreach(var jugador in ListaJugadores)
+                    {
+
+                        <option value="@jugador.JugadorId" 
+                        disabled="@(jugador.JugadorId==partidas.Jugador2Id)">
+                            @jugador.Nombres</option>
+                    }
+
+                </InputSelect>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label"><strong>Jugador O</strong></label>
+                <InputSelect class="" selected disable @bind-Value="partidas.Jugador2Id">
+                    @foreach(var jugadorO in ListaJugadores)
+                    {
+                        <option value="@jugadorO.JugadorId" 
+                        disabled="@(jugadorO.JugadorId==partidas.Jugador1Id)">
+                            @jugadorO.Nombres></option>
+                    }
+                </InputSelect>
+            </div>
+        </div>
+        <div class="card-footer text-center">@*Poner Iconos/ tambien en eliminar y editar all plataform around*@
+            <button type="submit" class="btn btn-primary">Iniciar Partida</button>
+        </div>
+    </div>
+</EditForm>
+
+
+
+
+
+@code{
+    public Partidas partidas { get; set; } = new Partidas();
+    public List<Jugadores> ListaJugadores { get; set; } = new List<Jugadores>();
+    public string errorMessage { get; set; } = string.Empty;
+
+    protected async Task OnInitializeAsync()
+    {
+        ListaJugadores = await jugadoresServicios.GetList(j=>true);
+    }
+
+
+    public async Task Guardar()
+    {
+        //agregar validacion de que jugador x debe de ser seleccionado
+
+        if (partidas.Jugador2Id == 0)
+        {
+            partidas.EstadoPartida = "Solicitada";
+        }
+        else
+        {
+            partidas.EstadoPartida = "En Proceso";
+        }
+        partidas.GanadorId = null;
+        partidas.TurnoJugadorId = partidas.Jugador1Id;
+        partidas.FechaInicio = DateTime.Now;
+        partidas.FechaFin = null;
+
+        var creado = await partidasServices.Registrar(partidas);
+
+
+        if (creado)
+        {
+            errorMessage = "Se Guardo Correctamente";
+        }
+        else
+        {
+            errorMessage = "Error Inesperado: No se pudo Guardar Correctamente";
+        }
+    }
+
+}
