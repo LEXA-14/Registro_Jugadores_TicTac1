@@ -7,13 +7,18 @@
 @rendermode InteractiveServer
 
 <div class="container mx-auto max-w-lg p-6 bg-white rounded-lg shadow-xl text-center">
+   <div class="card-header">
+       <div class="card-shadow-lg">
     <h1 class="text-3xl font-bold mb-6 ">Seleccionar Jugadores</h1>
+    </div>
 
+    <div class="card-body">
     <div class="d-flex justify-content-around">
+        
         @*"grid grid-cols-2 gap-8 mb-8"*@
         @* SELECCION DEL JUGADOR X *@
         <div>
-            <label class="font-semibold text-xl text-fuchsia-600">Jugador X</label>
+            <label class="font-semibold text-xl text-danger">Jugador X</label>
             <InputSelect class="form-select mt-2 border-2 border-pink-600 focus:ring-red-600 focus:border-red-600"
                          @bind-Value="partida.Jugador1Id">
                 <option value="0" selected disabled>Seleccione un jugador</option>
@@ -29,7 +34,7 @@
 
         @* SELECCION DEL JUGADOR O*@
         <div>
-            <label class="form-label text-lg text-blue">Jugador O</label>
+            <label class="form-label text-lg text-primary">Jugador O</label>
             <InputSelect class="form-select mt-2 p-2 w-full border rounded-md focus:ring-blue-500 focus:border-blue-500"
                          @bind-Value="partida.Jugador2Id">
                 <option value="0" selected disabled>Seleccione un jugador</option>
@@ -43,7 +48,8 @@
             </InputSelect>
         </div>
     </div>
-
+    </div>
+    
     <div class="card-footer">
         @*boton de iniciar Partida*@
     <button class="btn btn-success btn-lg mt-4"
@@ -53,12 +59,13 @@
     </button>
     </div>
 </div>
+</div>
 
 @code {
     private List<Jugadores> ListaJugadores = new List<Jugadores>();
     private Partidas partida = new Partidas();
 
-    private bool ValidoSeleccion => partida.Jugador1Id > 0 && partida.Jugador2Id > 0;
+    private bool ValidoSeleccion => partida.Jugador1Id > 0;
 
     protected override async Task OnInitializedAsync()
     {

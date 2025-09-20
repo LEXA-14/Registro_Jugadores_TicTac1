@@ -4,12 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using RegistroJugadoresServices;
 using Microsoft.AspNetCore.Components;
 
-
-
-
 namespace Registro_Jugadores_TicTac1.Services;
-
-
 
 public class JuegosServices
 {

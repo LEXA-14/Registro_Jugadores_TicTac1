@@ -15,26 +15,28 @@
 
 
 @*PANTALLA DE JUEGO *@
-<div class="game-screen">
-    <h2 class="game-status">@GameStatus</h2>
+<div class="game-container">
+    <div class="game-screen">
+        <h2 class="game-status">@GameStatus</h2>
 
-    <div class="game-board">
-        @for (var i = 0; i < 9; i++)
-        {
-            var cellIndex = i; // Copia local para evitar problemas con el closure en el lambda
-            <button class="cell @GetPlayerClass(board[cellIndex])"
-            @onclick="() => HandleCellClick(cellIndex)"
-            disabled="@(board[cellIndex] != null || winner != null || esEmpate)">
-                @board[cellIndex]?.ToString()
-            </button>
-        }
+        <div class="game-board">
+            @for (var i = 0; i < 9; i++)
+            {
+                var cellIndex = i; // Copia local para evitar problemas con el closure en el lambda
+                <button class="cell @GetPlayerClass(board[cellIndex])"
+                @onclick="() => HandleCellClick(cellIndex)"
+                disabled="@(board[cellIndex] != null || winner != null || esEmpate)">
+                    @board[cellIndex]?.ToString()
+                </button>
+            }
+        </div>
+
+        <button class="btn btn-danger mt-4" @onclick="RestartGame">
+            Reiniciar Juego
+        </button>
     </div>
-
-    <button class="btn btn-secondary mt-4" @onclick="RestartGame">
-        Reiniciar Juego
-    </button>
 </div>
-}
+
 
 
 @code {
@@ -76,9 +78,13 @@
         get
         {
             if (winner != null) return $"🏆 ¡Ganador: {winner}!";
-            return esEmpate
-                ? "🤝 ¡Es un empate!"
-                : $"Turno de: {_currentPlayerType}";
+
+            if(esEmpate) return "🤝 ¡Es un empate!";
+
+            if (_currentPlayerType == PlayerType.O && jugador2 == null)
+                return "⌛ Esperando por Jugador O....";
+
+            return $"Turno de: {_currentPlayerType}";
         }
     }
 
@@ -110,6 +116,7 @@
             return;
         }
 
+
         board[index] = _currentPlayerType;
 
 
@@ -133,7 +140,6 @@
         winner = juegosServices.CheckForWinner(board);
         if (winner != null)
         {
-           // Console.WriteLine(partida.PartidaId + partida.Jugador1.Nombres + partida.Jugador2.Nombres);
             if (partida != null && jugador1 != null && jugador2 != null)
             {
 
@@ -148,7 +154,7 @@
 
             if (partida != null && jugador1 != null && jugador2 != null)
             {
-                //Console.WriteLine(partida.PartidaId + partida.Jugador1.Nombres + partida.Jugador2.Nombres);
+               
                 await juegosServices.GameOver(partida, jugador1, jugador2, null);
             }
             return; 
@@ -158,6 +164,12 @@
         _currentPlayerType = (_currentPlayerType == PlayerType.X) 
             ? PlayerType.O 
             : PlayerType.X;
+
+        if (_currentPlayerType == PlayerType.O && jugador2 == null)
+        {
+            Console.WriteLine("⚠️ No se puede jugar, esperando Jugador O...");
+            return;
+        }
 
         //actualizar turno jugador id
         partida.TurnoJugadorId=(_currentPlayerType==PlayerType.X)? jugador1.JugadorId: jugador2.JugadorId;

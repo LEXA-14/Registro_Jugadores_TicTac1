@@ -9,40 +9,45 @@
 
 <div class="container">
     <div class="card shadow-lg">
-        <div class="card-header d-flex justify-content-between align-items-center">
-            <h5 class="card-title mb-0">Index de Jugadores</h5>
+        <div class="card-header  d-flex justify-content-between align-items-center">
+            <div class="card-title"></div>
+            <h5 class="card-title text-center">Index de Jugadores</h5>
             <a href="/Jugadores/Create" class="btn btn-primary"><span class="bi bi-plus-square"></span>Crear</a>
         </div>
+
         <div class="card-body">
             @*Search and filter*@
             <div class="row mb-3">
-                <div class="col-md-6">
+                <div class="col-3">
                     <label>Filtro:</label>
                     <InputSelect class="form-select" @bind-value="Filtro" @onchange="AplicarFiltro">
                         <option value="">Seleccione un filtro</option>
-                        <option value="Mayor">Mayor a Menor</option>
-                        <option value="Menor">Menor a Mayor</option>
-                       
+                        <option value="JugadorId">Jugador ID</option>
+                        <option value="Nombres">Nombres</option>
+
                     </InputSelect>
-                     <button class="btn btn-outline-secondary" @onclick="AplicarFiltro"> Aplicar Filtro</button>
+                    
                 </div>
-                <div class="col-md-6">
-                    <label>Buscar:</label>
+                <div class="col-4 offset-5">
+                    <label >Buscar:</label>
                     <div class="input-group">
                         <input class="form-control" @bind="ValorFiltro" placeholder="Buscar"/>
-                        <button type="button" class="btn btn-outline-primary bi bi-search" @onclick="Buscar">
-                            <i class="bi bi-search"></i>Buscar
+                        <button type="button" class="btn btn-outline-primary bi bi-search" @onclick="AplicarFiltro">
+
                         </button>
                     </div>
                 </div>
             </div>
-            @*here *@
+
             <table class="table table-hover">
                 <thead>
                     <tr>
                         <th>ID</th>
                         <th>Nombre</th>
-                        <th>Partidas</th>
+                        <th>Victorias</th>
+                        <th>Derrotas</th>
+                        <th>Empates</th>
+                        <th>Opciones</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -53,18 +58,23 @@
                             <td>@jugador.JugadorId</td>
                             <td>@jugador.Nombres</td>
                             <td>@jugador.Victorias</td>
+                            <td>@jugador.Derrotas</td>
+                            <td>@jugador.Empates</td>
                             <td>
-                                <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-sm btn-warning">
-                                    Editar <i class="bi bi-pencil"></i>
+                                <a href="/Jugadores/Edit/@jugador.JugadorId" class="btn btn-outline-primary bi bi-pencil-square">
+
                                 </a>
-                                <button class="btn btn-sm btn-danger" @onclick="()=>EliminarJugador(jugador.JugadorId)">
-                                    Eliminar <i class="bi bi-trash"></i>
-                                </button>
+                               
                             </td>
                         </tr>
                     }
                 </tbody>
             </table>
+        </div>
+        <div class="card-footer">
+            <label>Victorias: @ListaJugadores.Sum(j=>j.Victorias)    </label>
+            <label>Derrotas: @ListaJugadores.Sum(j=>j.Derrotas)     </label>
+            <label>Empates: @ListaJugadores.Sum(j=>j.Empates)   </label>
         </div>
     </div>
 </div>
@@ -78,26 +88,29 @@
     {
         ListaJugadores=await jugadoresServices.GetList(j=>j.JugadorId>0);
     }
-    
-   
+
+
     private async Task AplicarFiltro()
     {
-      
+
         var jugadores = await jugadoresServices.GetList(j => true);
-        
-        if (Filtro == "Mayor")
+
+        if (!string.IsNullOrWhiteSpace(ValorFiltro))
         {
-            ListaJugadores = await jugadoresServices.JugadoresMayorAMenor();
-        }
-        else if (Filtro == "Menor")
-        {
-            ListaJugadores = await jugadoresServices.JugadoresMenorAMayor();
+
+            if (Filtro == "JugadorId" && int.TryParse(ValorFiltro,out int id))
+            {
+                ListaJugadores = await jugadoresServices.GetList(j => j.JugadorId == id);
+            }
+            else if (Filtro == "Nombres")
+            {
+                ListaJugadores = await jugadoresServices.GetList(j=>j.Nombres.ToLower()==ValorFiltro.ToLower());
+            }
         }
         else
         {
-   
 
-          
+
             ListaJugadores = jugadores;
         }
     }
