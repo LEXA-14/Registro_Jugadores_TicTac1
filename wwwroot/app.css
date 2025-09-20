@@ -61,7 +61,7 @@ h1:focus {
     padding-top: 2rem;
 }
 
-.selection-screen h1,
+.r: not-allowselection-screen h1,
 .game-screen h2 {
     margin-bottom: 1.5rem;
 }
@@ -100,7 +100,7 @@ h1:focus {
     }
 
     .cell:disabled {
-        cursor: not-allowed;
+        cursoed;
     }
 
 /* Colores para los jugadores */
