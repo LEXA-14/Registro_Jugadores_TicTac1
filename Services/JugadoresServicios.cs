@@ -1,7 +1,7 @@
-using RegistroJugadores.DAL;
+using Registro_Jugadores_TicTac1.DAL;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
-using RegistroJugadores.Models;
+using Registro_Jugadores_TicTac1.Models;
 
 
 namespace RegistroJugadoresServices

@@ -1,14 +1,15 @@
-using RegistroJugadores.Models;
-using Microsoft.EntityFrameworkCore;
 using Registro_Jugadores_TicTac1.Models;
+using Microsoft.EntityFrameworkCore;
 
-namespace RegistroJugadores.DAL
+
+namespace Registro_Jugadores_TicTac1.DAL
 {
 
     public class contexto : DbContext
     {
         public DbSet<Jugadores> Jugadores { get; set; }
         public DbSet<Partidas> Partidas { get; set; }
+        public DbSet<Movimientos> Movimientos { get; set; }
         public contexto(DbContextOptions<contexto> options) : base(options) { }
 
 
@@ -43,6 +44,20 @@ namespace RegistroJugadores.DAL
                 .WithMany()
                 .HasForeignKey(p => p.TurnoJugadorId)
                 .OnDelete(DeleteBehavior.NoAction);
+
+            //movimientos a partidas
+
+            modelBuilder.Entity<Movimientos>()
+                .HasOne(m => m.Partidas)
+                .WithMany(p => p.MovimientosPartidas)
+                .HasForeignKey(m => m.PartidaId);
+
+            //movimientos jugador
+
+            modelBuilder.Entity<Movimientos>()
+                .HasOne(m => m.Jugadores)
+                .WithMany(j => j.Movimientos)
+                .HasForeignKey(j => j.JugadorId);
         }
     }
 }

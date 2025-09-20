@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using RegistroJugadores.DAL;
+using Registro_Jugadores_TicTac1.DAL;
 
 #nullable disable
 
@@ -17,12 +17,12 @@ namespace Registro_Jugadores_TicTac1.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.8")
+                .HasAnnotation("ProductVersion", "9.0.9")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("RegistroJugadores.Models.Jugadores", b =>
+            modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Jugadores", b =>
                 {
                     b.Property<int>("JugadorId")
                         .ValueGeneratedOnAdd()
@@ -46,6 +46,38 @@ namespace Registro_Jugadores_TicTac1.Migrations
                     b.HasKey("JugadorId");
 
                     b.ToTable("Jugadores");
+                });
+
+            modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Movimientos", b =>
+                {
+                    b.Property<int>("MovimientoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("MovimientoId"));
+
+                    b.Property<DateTime>("FechaMovimiento")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("JugadorId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PartidaId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosicionColumna")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PosicionFila")
+                        .HasColumnType("int");
+
+                    b.HasKey("MovimientoId");
+
+                    b.HasIndex("JugadorId");
+
+                    b.HasIndex("PartidaId");
+
+                    b.ToTable("Movimientos");
                 });
 
             modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Partidas", b =>
@@ -97,25 +129,44 @@ namespace Registro_Jugadores_TicTac1.Migrations
                     b.ToTable("Partidas");
                 });
 
+            modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Movimientos", b =>
+                {
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Jugadores", "Jugadores")
+                        .WithMany("Movimientos")
+                        .HasForeignKey("JugadorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Partidas", "Partidas")
+                        .WithMany("MovimientosPartidas")
+                        .HasForeignKey("PartidaId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Jugadores");
+
+                    b.Navigation("Partidas");
+                });
+
             modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Partidas", b =>
                 {
-                    b.HasOne("RegistroJugadores.Models.Jugadores", "Ganador")
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Jugadores", "Ganador")
                         .WithMany()
                         .HasForeignKey("GanadorId")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("RegistroJugadores.Models.Jugadores", "Jugador1")
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Jugadores", "Jugador1")
                         .WithMany()
                         .HasForeignKey("Jugador1Id")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("RegistroJugadores.Models.Jugadores", "Jugador2")
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Jugadores", "Jugador2")
                         .WithMany()
                         .HasForeignKey("Jugador2Id")
                         .OnDelete(DeleteBehavior.NoAction);
 
-                    b.HasOne("RegistroJugadores.Models.Jugadores", "TurnoJugador")
+                    b.HasOne("Registro_Jugadores_TicTac1.Models.Jugadores", "TurnoJugador")
                         .WithMany()
                         .HasForeignKey("TurnoJugadorId")
                         .OnDelete(DeleteBehavior.NoAction)
@@ -128,6 +179,16 @@ namespace Registro_Jugadores_TicTac1.Migrations
                     b.Navigation("Jugador2");
 
                     b.Navigation("TurnoJugador");
+                });
+
+            modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Jugadores", b =>
+                {
+                    b.Navigation("Movimientos");
+                });
+
+            modelBuilder.Entity("Registro_Jugadores_TicTac1.Models.Partidas", b =>
+                {
+                    b.Navigation("MovimientosPartidas");
                 });
 #pragma warning restore 612, 618
         }

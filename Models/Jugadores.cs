@@ -1,6 +1,8 @@
-using System.ComponentModel.DataAnnotations;
 
-namespace RegistroJugadores.Models
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Registro_Jugadores_TicTac1.Models
 {
 
     public class Jugadores
@@ -17,6 +19,10 @@ namespace RegistroJugadores.Models
 
         public int Derrotas { get; set; }
         public int Empates { get; set; }
+
+        //[InverseProperty(nameof(Movimientos.Jugadores))]
+        [InverseProperty(nameof(Models.Movimientos.Jugadores))]
+        public virtual ICollection<Movimientos> Movimientos{ get; set; }
 
     }
 }

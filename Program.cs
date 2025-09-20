@@ -1,5 +1,5 @@
 using Registro_Jugadores_TicTac1.Components;
-using RegistroJugadores.DAL;
+using Registro_Jugadores_TicTac1.DAL;
 using Microsoft.EntityFrameworkCore;
 using RegistroJugadoresServices;
 using Registro_Jugadores_TicTac1.Services;
@@ -24,8 +24,13 @@ builder.Services.AddRazorComponents()
             builder.Services.AddDbContextFactory<contexto>(o => o.UseSqlServer(ConStr));
             //inyeccion
             builder.Services.AddScoped<JugadoresServicios>();
-//inyeccion de partidas services
-builder.Services.AddScoped<PartidasServices>();
+           //inyeccion de partidas services
+        builder.Services.AddScoped<PartidasServices>();
+//inyeccion de movimientos services
+builder.Services.AddScoped<MovimientosServices>();
+//inyeccion de JuegosServicios 
+builder.Services.AddScoped<JuegosServices>();
+
 
             var app = builder.Build();
 
