@@ -14,36 +14,37 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 //builder.WebHost.UseWebRoot(Path.Combine(builder.Environment.ContentRootPath, "wwwroot"));
 
 
-// Add services to the container.
 builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            //constructor para el contexto
-            var ConStr = builder.Configuration.GetConnectionString("SqlConstr");
-            //contexto 
-            builder.Services.AddDbContextFactory<contexto>(o => o.UseSqlServer(ConStr));
-            //inyeccion
-            builder.Services.AddScoped<JugadoresServicios>();
-           //inyeccion de partidas services
-        builder.Services.AddScoped<PartidasServices>();
-//inyeccion de movimientos services
+            
+var ConStr = builder.Configuration.GetConnectionString("SqlConstr");
+          
+builder.Services.AddDbContextFactory<contexto>(o => o.UseSqlServer(ConStr));
+            
+builder.Services.AddScoped<JugadoresServicios>();
+          
+builder.Services.AddScoped<PartidasServices>();
+
 builder.Services.AddScoped<MovimientosServices>();
-//inyeccion de JuegosServicios 
+
 builder.Services.AddScoped<JuegosServices>();
 
+//builder.Services.AddScoped(sp=>new HttpClient { BaseAddress = new Uri("https://gestionhuacalesapi.azurewebsites.net/") });
 
-            var app = builder.Build();
+
+var app = builder.Build();
 
 
             // Configure the HTTP request pipeline.
-            if (!app.Environment.IsDevelopment())
-            {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
-            }
+if (!app.Environment.IsDevelopment())
+ {
+  app.UseExceptionHandler("/Error");
+ // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+ app.UseHsts();
+ }
 
-            app.UseHttpsRedirection();
+app.UseHttpsRedirection();
 
             app.UseStaticFiles();
             app.UseAntiforgery();
