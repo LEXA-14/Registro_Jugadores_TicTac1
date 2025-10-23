@@ -31,6 +31,7 @@ Global
 		SolutionGuid = {93E8F566-8D15-4204-9176-288FBA80C655}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
+		..\RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{a9212dbb-ac38-4a7c-b7b8-f460befb3955}*SharedItemsImports = 5
 		..\RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{e6e2f546-8b65-43a0-9d0e-d77ac17a3290}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
