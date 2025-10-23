@@ -5,9 +5,9 @@ VisualStudioVersion = 17.13.35919.96
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Registro_Jugadores_TicTac1", "Registro_Jugadores_TicTac1.csproj", "{2AB995F7-74C3-4CAE-8084-EDC530FF7802}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDeJugadoresTicTacToe", "..\RegistroDeJugadoresTicTacToe\RegistroDeJugadoresTicTacToe.csproj", "{A9212DBB-AC38-4A7C-B7B8-F460BEFB3955}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RegistroDeJugadoresTicTacToe", "RegistroDeJugadoresTicTacToe\RegistroDeJugadoresTicTacToe.csproj", "{116C0D99-15B3-8215-7422-709F8351F6D4}"
 EndProject
-Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RegistroJugadoresTicTacToe", "..\RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.shproj", "{E6E2F546-8B65-43A0-9D0E-D77AC17A3290}"
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "RegistroJugadoresTicTacToe", "RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.shproj", "{E6E2F546-8B65-43A0-9D0E-D77AC17A3290}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -19,10 +19,10 @@ Global
 		{2AB995F7-74C3-4CAE-8084-EDC530FF7802}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2AB995F7-74C3-4CAE-8084-EDC530FF7802}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2AB995F7-74C3-4CAE-8084-EDC530FF7802}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A9212DBB-AC38-4A7C-B7B8-F460BEFB3955}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A9212DBB-AC38-4A7C-B7B8-F460BEFB3955}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A9212DBB-AC38-4A7C-B7B8-F460BEFB3955}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A9212DBB-AC38-4A7C-B7B8-F460BEFB3955}.Release|Any CPU.Build.0 = Release|Any CPU
+		{116C0D99-15B3-8215-7422-709F8351F6D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{116C0D99-15B3-8215-7422-709F8351F6D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{116C0D99-15B3-8215-7422-709F8351F6D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{116C0D99-15B3-8215-7422-709F8351F6D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -31,7 +31,7 @@ Global
 		SolutionGuid = {93E8F566-8D15-4204-9176-288FBA80C655}
 	EndGlobalSection
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
-		..\RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{a9212dbb-ac38-4a7c-b7b8-f460befb3955}*SharedItemsImports = 5
-		..\RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{e6e2f546-8b65-43a0-9d0e-d77ac17a3290}*SharedItemsImports = 13
+		RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{116c0d99-15b3-8215-7422-709f8351f6d4}*SharedItemsImports = 5
+		RegistroJugadoresTicTacToe\RegistroJugadoresTicTacToe.projitems*{e6e2f546-8b65-43a0-9d0e-d77ac17a3290}*SharedItemsImports = 13
 	EndGlobalSection
 EndGlobal
