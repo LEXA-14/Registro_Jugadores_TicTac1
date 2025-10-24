@@ -1,0 +1,8 @@
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.csproj.AssemblyReference.cache
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\rpswa.dswa.cache.json
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.GeneratedMSBuildEditorConfig.editorconfig
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.AssemblyInfoInputs.cache
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.AssemblyInfo.cs
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.csproj.CoreCompileInputs.cache
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.MvcApplicationPartsAssemblyInfo.cache
+C:\Programacion Aplicada1\Registro_Jugadores_TicTac1\RegistroDeJugadoresTicTacToe\obj\Release\net9.0\RegistroDeJugadoresTicTacToe.sourcelink.json
