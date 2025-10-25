@@ -1,5 +1,109 @@
 ﻿@page "/gameboard"
 
+
+<div class="container mx-auto max-w-lg display-6 bg-white rounded-lg shadow-xl text-center">
+    <div class="game-container">
+        @if (!gameStarted)
+        {
+            <div class="container-fluid py-5">
+                <h1 class="display-5 fw-bold">Tic Tac Toe</h1>
+                <p class="fs-12">
+                    Cada jugador solo debe colocar su símbolo una vez por turno y no debe ser sobre una casilla ya jugada.
+                    En caso de que el jugador haga trampa el ganador será el otro. Se debe conseguir realizar una línea recta o diagonal por símbolo.
+                </p>
+            </div>
+             <!-- PANTALLA DE SELECCIÓN DE JUGADOR -->
+            <div class="selection-screen">
+                <h4>Crear una partida Nueva</h4>
+                <div class="player-buttons">
+                    <div class="mb-3">
+                        <label class="form-label">Jugador 1</label>
+                        <input type="number" class="form-control" @bind="Jugador1Id" placeholder="ID Jugador 1" />
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label">Jugador 2</label>
+                        <input type="number" class="form-control" @bind="Jugador2Id" placeholder="ID Jugador 2" />
+                    </div>
+                </div>
+                <button class="btn btn-success btn-lg mt-2"
+                        disabled="@(Jugador1Id == 0 || Jugador2Id == 0)"
+                        @onclick="CreateGame">
+                    Crear Partida
+                </button>
+                <hr class="my-4" />
+
+                <h4>Unirse a Partida Existente</h4>
+                <div class="form-group">
+                    <label for="partidaId">ID de la Partida:</label>
+                    <div class="input-group">
+                        <input id="partidaId" type="number" class="form-control" @bind="PartidaId" placeholder="ID de la partida" />
+                        <button class="btn btn-outline-secondary" type="button" @onclick="OpenPartidasModal">
+                            <span class="bi-search-icon"></span>
+                        </button>
+                    </div>
+                </div>
+                <button class="btn btn-warning btn-lg mt-2"
+                        disabled="@(PartidaId == 0)"
+                        @onclick="JoinGame">
+                    Unirse a Partida
+                </button>
+
+                @if (!string.IsNullOrWhiteSpace(errorMessage))
+                {
+                    <div class="alert alert-danger mt-3">@errorMessage</div>
+                }
+            </div>
+        }
+        else
+        {
+            <!-- PANTALLA DE JUEGO -->
+            <div class="game-screen">
+                <h2>Partida: @PartidaId</h2>
+                <h4 class="game-status">@GameStatus</h4>
+
+                <div class="game-board">
+                    @for (var i = 0; i < 9; i++)
+                    {
+                        var cellIndex = i; // Copia local para evitar problemas con el closure en el lambda
+                        <button class="cell @GetPlayerClass(board[cellIndex])"
+                                @onclick="() => HandleCellClick(cellIndex)"
+                                disabled="@(board[cellIndex] != null || winner != null || esEmpate)">
+                            @board[cellIndex]?.ToString()
+                        </button>
+                    }
+                </div>
+                <div class="mt-4">
+                    <button class="btn btn-info me-2" @onclick="RefreshGameState" disabled="@refreshing">
+                        @if (refreshing)
+                        {
+                            <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                            <span> Cargando...</span>
+                        }
+                        else
+                        {
+                            <span>🔄 Refrescar Estado</span>
+                        }
+                    </button>
+
+                    <button class="btn btn-secondary" @onclick="LeaveGame">
+                        Salir de la Partida
+                    </button>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<PartidasModal IsOpen="showModal" 
+               IsOpenChanged="(value) => showModal = value"
+               OnPartidaSelected="HandlePartidaSelected" />
+
+
+
+        }
+ 
+
+
 @inject IPartidasServices partidasServices
 @inject IMovimientosServices movimientosApiService
 <h3>TicTacToeComponent</h3>
