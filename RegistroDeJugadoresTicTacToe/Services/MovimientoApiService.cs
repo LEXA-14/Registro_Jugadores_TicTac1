@@ -22,7 +22,7 @@ public class MovimientoApiService(HttpClient httpClient) : IMovimientosServices
         }
     }
 
-    public async Task<Resource<List<MovimientoResponse>>> GetMovimientosAsync()
+    public async Task<Resource<List<MovimientoResponse>>> GetMovimientosAsync(int partidaId)
     {
         try
         {

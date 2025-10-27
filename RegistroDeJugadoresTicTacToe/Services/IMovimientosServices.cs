@@ -7,7 +7,7 @@ namespace RegistroDeJugadoresTicTacToe.Services;
 
 public interface IMovimientosServices
 {
-    Task<Resource<List<MovimientoResponse>>> GetMovimientosAsync();
+    Task<Resource<List<MovimientoResponse>>> GetMovimientosAsync(int partidaId);
 
     Task<Resource<MovimientoResponse>> GetMovimientoAsync(int partidaId);
 
