@@ -1,27 +1,31 @@
 ﻿@page "/gameboard"
+@inject IPartidasServices partidasServices
+@inject IMovimientosServices movimientosApiService
+@using RegistroJugadoresTicTacToe.Shared.Dtos
 @implements IDisposable
 
 <div class="container mx-auto max-w-lg display-6 bg-white rounded-lg shadow-xl text-center">
     <div class="game-container">
+        <div class="card shadow-lg">
         @if (!gameStarted)
         {
             <div class="container-fluid py-5">
                 <h1 class="display-5 fw-bold">Tic Tac Toe</h1>
-                <p class="fs-12">
+                <p class="text-muted small fs-8">
                     Cada jugador solo debe colocar su símbolo una vez por turno y no debe ser sobre una casilla ya jugada.
                     En caso de que el jugador haga trampa el ganador será el otro. Se debe conseguir realizar una línea recta o diagonal por símbolo.
                 </p>
             </div>
-            <!-- PANTALLA DE SELECCIÓN DE JUGADOR -->
+            <!-- PANTALLA DE SELECCION DE JUGADOR -->
             <div class="selection-screen">
-                <h4>Crear una partida Nueva</h4>
-                <div class="player-buttons">
-                    <div class="mb-3">
+                <h2><strong>Crear una partida Nueva</strong></h2>
+                <div class="player-buttons justify-content-center">
+                    <div class="mb-3 ">
                         <label class="form-label">Jugador 1</label>
                         <input type="number" class="form-control" @bind="Jugador1Id" placeholder="ID Jugador 1" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Jugador 2 (opcional)</label>
+                        <label class="form-label">Jugador 2 </label>
                         <input type="number" class="form-control" @bind="Jugador2Id" placeholder="ID Jugador 2 (dejar en 0 si aún no hay)" />
                     </div>
                 </div>
@@ -31,26 +35,29 @@
                     Crear Partida
                 </button>
                 <hr class="my-4" />
-
-                <h4>Unirse a Partida Existente</h4>
+                
+                <h2><strong>Unirse a Partida Existente</strong></h2>
+                <div class="player-buttons justify-content-center">
                 <div class="mb-3">
                     <label class="form-label">Tu ID de Jugador</label>
                     <input type="number" class="form-control" @bind="MiJugadorId" placeholder="Tu ID" />
                 </div>
-                <div class="form-group">
-                    <label for="partidaId">ID de la Partida:</label>
-                    <div class="input-group">
-                        <input id="partidaId" type="number" class="form-control" @bind="PartidaId" placeholder="ID de la partida" />
+                <div class="mb-3">
+                    <label class="form-label">ID de la Partida:</label>
+                        <input type="number" class="form-control" @bind=PartidaId placeholder="ID de la partida"/>
                         <button class="btn btn-outline-secondary" type="button" @onclick="OpenPartidasModal">
                             <span class="bi-search-icon"></span>
                         </button>
-                    </div>
+                  
                 </div>
+                </div>
+
                 <button class="btn btn-warning btn-lg mt-2"
                         disabled="@(PartidaId == 0 || MiJugadorId == 0)"
                         @onclick="JoinGame">
                     Unirse a Partida
                 </button>
+                
 
                 @if (!string.IsNullOrWhiteSpace(errorMessage))
                 {
@@ -113,13 +120,15 @@
         }
     </div>
 </div>
+</div>
 
 <PartidasModal IsOpen="showModal"
                IsOpenChanged="(value) => showModal = value"
                OnPartidaSelected="HandlePartidaSelected" />
 
-@inject IPartidasServices partidasServices
-@inject IMovimientosServices movimientosApiService
+
+ 
+ 
 
 @code {
     public Guid CurrentSession { get; set; }
@@ -449,4 +458,5 @@
     {
         StopAutoRefresh();
     }
+}
 }
