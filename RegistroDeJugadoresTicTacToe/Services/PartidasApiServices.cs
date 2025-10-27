@@ -68,8 +68,8 @@ public class PartidasApiServices(HttpClient httpClient) : IPartidasServices
         {
             var response = await httpClient.PutAsJsonAsync($"/api/Partidas/{partidaId}", request);
             response.EnsureSuccessStatusCode();
-            var modificado = await response.Content.ReadFromJsonAsync<PartidaResponse>();
-            return new Resource<PartidaResponse>.Success(modificado!);
+        
+            return new Resource<PartidaResponse>.Success(null!);
         }
         catch (HttpRequestException ex)
         {

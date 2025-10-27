@@ -230,10 +230,22 @@
         Jugador1Id = partida.jugador1Id;
         Jugador2Id = partida.jugador2Id;
 
-        if (MiJugadorId != Jugador1Id && MiJugadorId != Jugador2Id)
+        if (MiJugadorId != Jugador1Id && Jugador2Id.HasValue && Jugador2Id>0 && MiJugadorId != Jugador2Id)
         {
             errorMessage = "Tu ID no está registrado en esta partida.";
             return;
+        }
+
+        //si no hay jugador 2 el jugador que entre se convierta en el
+        if(MiJugadorId!=Jugador1Id && (Jugador2Id==null || Jugador2Id == 0))
+        {
+            var update = await partidasServices.PutPartida(PartidaId, Jugador1Id, MiJugadorId);
+            if(update is Resource<PartidaResponse>.Error updateError)
+            {
+                errorMessage = $"Error al Ingresar el Jugador 2: {updateError.Message}";
+                return;
+            }
+            Jugador2Id = MiJugadorId;
         }
 
         esperandoOponente = Jugador2Id <= 0;
