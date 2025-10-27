@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RegistroDeJugadoresTicTacToe")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+86111c31f7809f0cb4965237375585a176ca9f7e")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+edf376177ee1ca3581c025b370a62006614c7b39")]
 [assembly: System.Reflection.AssemblyProductAttribute("RegistroDeJugadoresTicTacToe")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RegistroDeJugadoresTicTacToe")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

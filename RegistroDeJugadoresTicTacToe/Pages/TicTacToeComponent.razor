@@ -1,5 +1,4 @@
 ﻿@page "/gameboard"
-@using RegistroJugadoresTicTacToe.Shared.Dtos
 @implements IDisposable
 
 <div class="container mx-auto max-w-lg display-6 bg-white rounded-lg shadow-xl text-center">
@@ -13,7 +12,7 @@
                     En caso de que el jugador haga trampa el ganador será el otro. Se debe conseguir realizar una línea recta o diagonal por símbolo.
                 </p>
             </div>
-            <!-- PANTALLA DE SELECCION DE JUGADOR -->
+            <!-- PANTALLA DE SELECCIÓN DE JUGADOR -->
             <div class="selection-screen">
                 <h4>Crear una partida Nueva</h4>
                 <div class="player-buttons">
@@ -22,7 +21,7 @@
                         <input type="number" class="form-control" @bind="Jugador1Id" placeholder="ID Jugador 1" />
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Jugador 2 </label>
+                        <label class="form-label">Jugador 2 (opcional)</label>
                         <input type="number" class="form-control" @bind="Jugador2Id" placeholder="ID Jugador 2 (dejar en 0 si aún no hay)" />
                     </div>
                 </div>
@@ -133,6 +132,7 @@
 
     private bool gameStarted;
     private bool esperandoOponente;
+    private PlayerType? playerTypeSelection;
     private PlayerType?[] board = new PlayerType?[9];
     private PlayerType _currentPlayerType = PlayerType.X;
     private PlayerType? winner;
@@ -152,7 +152,7 @@
             if (winner != null) return $"🎉 ¡Ganador: {winner}!";
             if (esEmpate) return "🤝 ¡Es un empate!";
 
-            var turnoTexto = EsMiTurno() ? "Tu Turno" : $"Turno de {_currentPlayerType}";
+            var turnoTexto = EsMiTurno() ? "Tu Turno" : $" Turno de {_currentPlayerType}";
             return turnoTexto;
         }
     }
@@ -230,23 +230,9 @@
         Jugador1Id = partida.jugador1Id;
         Jugador2Id = partida.jugador2Id;
 
-        if (MiJugadorId == Jugador1Id || MiJugadorId == Jugador2Id)
+        if (MiJugadorId != Jugador1Id && MiJugadorId != Jugador2Id)
         {
-           
-        }
-        else if (Jugador2Id <= 0 && MiJugadorId != Jugador1Id)
-        {
-            var updateResponse = await partidasServices.PutPartida(PartidaId, Jugador1Id, MiJugadorId);
-            if (updateResponse is Resource<PartidaResponse>.Error updateError)
-            {
-                errorMessage = $"Error al registrarse como Jugador 2: {updateError.Message}";
-                return;
-            }
-            Jugador2Id = MiJugadorId;
-        }
-        else
-        {
-            errorMessage = "Tu ID no está registrado en esta partida o la partida ya tiene dos jugadores.";
+            errorMessage = "Tu ID no está registrado en esta partida.";
             return;
         }
 
@@ -257,7 +243,6 @@
         await RefreshGameState();
         StartAutoRefresh();
     }
-
     private async Task HandleCellClick(int index)
     {
         if (board[index] != null || winner != null || esEmpate)
@@ -278,7 +263,10 @@
 
         board[index] = _currentPlayerType;
 
-        var jugador = _currentPlayerType == PlayerType.X ? "X" : "O";
+       
+        string jugador = Simbolo.ToString();
+
+        
         var response = await movimientosApiService.PostMovimiento(PartidaId, jugador, fila, columna);
 
         if (response is Resource<MovimientoResponse>.Error error)
@@ -288,6 +276,7 @@
             return;
         }
 
+      
         winner = CheckForWinner();
         if (winner != null)
         {
@@ -302,6 +291,7 @@
             return;
         }
 
+      
         _currentPlayerType = (_currentPlayerType == PlayerType.X) ? PlayerType.O : PlayerType.X;
 
         await RefreshGameState();
@@ -345,19 +335,14 @@
                 return;
             }
 
-            var movimientos = movimientosResponse.Data?.Where(m => m.partidaId == PartidaId).ToList() ?? new List<MovimientoResponse>();
+            var movimientos = movimientosResponse.Data ?? new List<MovimientoResponse>();
 
             board = new PlayerType?[9];
-            string jugador1String = Jugador1Id.ToString();
-
             foreach (var move in movimientos)
             {
-                int index = move.posicionFila * 3 + move.posicionColumna;
+                int index = move.PosicionFila * 3 + move.PosicionColumna;
                 if (index >= 0 && index < 9)
-                {
-                   
-                    board[index] = move.Jugador == jugador1String ? PlayerType.X : PlayerType.O;
-                }
+                    board[index] = move.Jugador == "X" ? PlayerType.X : PlayerType.O;
             }
 
             _currentPlayerType = movimientos.Count % 2 == 0 ? PlayerType.X : PlayerType.O;
@@ -413,6 +398,7 @@
         Jugador1Id = 0;
         Jugador2Id = 0;
         MiJugadorId = 0;
+        playerTypeSelection = null;
         board = new PlayerType?[9];
         _currentPlayerType = PlayerType.X;
         winner = null;
@@ -452,5 +438,3 @@
         StopAutoRefresh();
     }
 }
-
-               
