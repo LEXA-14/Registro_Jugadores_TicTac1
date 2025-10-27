@@ -35,9 +35,9 @@ public class MovimientoApiService(HttpClient httpClient) : IMovimientosServices
         }
     }
 
-    public async Task<Resource<MovimientoResponse>> PostMovimiento(int partidaId, int jugadorId, int posicionFila, int posicionColumna)
+    public async Task<Resource<MovimientoResponse>> PostMovimiento(int partidaId,string jugador, int posicionFila, int posicionColumna)
     {
-        var request = new MovimientoRequest(partidaId, jugadorId, posicionFila, posicionColumna);
+        var request = new MovimientoRequest(partidaId, jugador, posicionFila, posicionColumna);
         try
         {
             var response = await httpClient.PostAsJsonAsync($"api/Movimientos", request);

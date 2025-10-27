@@ -11,6 +11,6 @@ public interface IMovimientosServices
 
     Task<Resource<MovimientoResponse>> GetMovimientoAsync(int partidaId);
 
-    Task<Resource<MovimientoResponse>> PostMovimiento(int partidaId, int jugadorId, int posicionFila,int posicionColumna);
+    Task<Resource<MovimientoResponse>> PostMovimiento(int partidaId, string jugador, int posicionFila,int posicionColumna);
 
 }

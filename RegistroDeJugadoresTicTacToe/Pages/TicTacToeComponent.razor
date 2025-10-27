@@ -133,7 +133,6 @@
 
     private bool gameStarted;
     private bool esperandoOponente;
-    private PlayerType? playerTypeSelection;
     private PlayerType?[] board = new PlayerType?[9];
     private PlayerType _currentPlayerType = PlayerType.X;
     private PlayerType? winner;
@@ -231,9 +230,23 @@
         Jugador1Id = partida.jugador1Id;
         Jugador2Id = partida.jugador2Id;
 
-        if (MiJugadorId != Jugador1Id && MiJugadorId != Jugador2Id)
+        if (MiJugadorId == Jugador1Id || MiJugadorId == Jugador2Id)
         {
-            errorMessage = "Tu ID no está registrado en esta partida.";
+           
+        }
+        else if (Jugador2Id <= 0 && MiJugadorId != Jugador1Id)
+        {
+            var updateResponse = await partidasServices.PutPartida(PartidaId, Jugador1Id, MiJugadorId);
+            if (updateResponse is Resource<PartidaResponse>.Error updateError)
+            {
+                errorMessage = $"Error al registrarse como Jugador 2: {updateError.Message}";
+                return;
+            }
+            Jugador2Id = MiJugadorId;
+        }
+        else
+        {
+            errorMessage = "Tu ID no está registrado en esta partida o la partida ya tiene dos jugadores.";
             return;
         }
 
@@ -265,7 +278,8 @@
 
         board[index] = _currentPlayerType;
 
-        var response = await movimientosApiService.PostMovimiento(PartidaId, MiJugadorId, fila, columna);
+        var jugador = _currentPlayerType == PlayerType.X ? "X" : "O";
+        var response = await movimientosApiService.PostMovimiento(PartidaId, jugador, fila, columna);
 
         if (response is Resource<MovimientoResponse>.Error error)
         {
@@ -334,11 +348,16 @@
             var movimientos = movimientosResponse.Data?.Where(m => m.partidaId == PartidaId).ToList() ?? new List<MovimientoResponse>();
 
             board = new PlayerType?[9];
+            string jugador1String = Jugador1Id.ToString();
+
             foreach (var move in movimientos)
             {
                 int index = move.posicionFila * 3 + move.posicionColumna;
                 if (index >= 0 && index < 9)
-                    board[index] = move.jugadorId == Jugador1Id ? PlayerType.X : PlayerType.O;
+                {
+                   
+                    board[index] = move.Jugador == jugador1String ? PlayerType.X : PlayerType.O;
+                }
             }
 
             _currentPlayerType = movimientos.Count % 2 == 0 ? PlayerType.X : PlayerType.O;
@@ -394,7 +413,6 @@
         Jugador1Id = 0;
         Jugador2Id = 0;
         MiJugadorId = 0;
-        playerTypeSelection = null;
         board = new PlayerType?[9];
         _currentPlayerType = PlayerType.X;
         winner = null;
@@ -434,3 +452,5 @@
         StopAutoRefresh();
     }
 }
+
+               
