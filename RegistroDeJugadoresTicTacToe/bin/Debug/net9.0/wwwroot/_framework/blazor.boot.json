@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "RegistroDeJugadoresTicTacToe",
   "resources": {
-    "hash": "sha256-t7G6BZLSoZI/WYb5Cu03g269vm9hpZqPIH+pwqawAO4=",
+    "hash": "sha256-ilkoFCkVA08kiLqY8KwGhgQi1kZ81pBpmDcsT7lmcz4=",
     "fingerprinting": {
       "AWSSDK.Core.lvtmgwmkvu.wasm": "AWSSDK.Core.wasm",
       "Microsoft.AspNetCore.Authorization.50odlujk1g.wasm": "Microsoft.AspNetCore.Authorization.wasm",
@@ -202,8 +202,8 @@
       "icudt_CJK.tjcz0u77k5.dat": "icudt_CJK.dat",
       "icudt_EFIGS.tptq2av103.dat": "icudt_EFIGS.dat",
       "icudt_no_CJK.lfu7j35m59.dat": "icudt_no_CJK.dat",
-      "RegistroDeJugadoresTicTacToe.s99hq4lw0b.wasm": "RegistroDeJugadoresTicTacToe.wasm",
-      "RegistroDeJugadoresTicTacToe.0iegvoflvw.pdb": "RegistroDeJugadoresTicTacToe.pdb"
+      "RegistroDeJugadoresTicTacToe.46kjat49zq.wasm": "RegistroDeJugadoresTicTacToe.wasm",
+      "RegistroDeJugadoresTicTacToe.oywtoi3nzj.pdb": "RegistroDeJugadoresTicTacToe.pdb"
     },
     "jsModuleNative": {
       "dotnet.native.l4ptthxatg.js": "sha256-ddUN4+taa/Qv7Mr8mLpunJO+0Xw3ViOqBvedhe57/hA="
@@ -414,10 +414,10 @@
       "WindowsBase.ahs9krftg4.wasm": "sha256-bgi2FHdT0ABsUP1yKQQ2AP8qfo1V/bS/4cJFE4OUHX8=",
       "mscorlib.k5iaovx9v7.wasm": "sha256-mEFLDERlY1HMNQHzh68xOPawXvI48O1fHW9PbfXugb4=",
       "netstandard.6sr1qvn64m.wasm": "sha256-Gpf+qEqCYaCB6zqI5sNPIurnfpwRtfcWksgf3CW6mHE=",
-      "RegistroDeJugadoresTicTacToe.s99hq4lw0b.wasm": "sha256-MIPRXwZJCNdBl6M10dst7u5IS29i15ZGxl8mpwo1bBo="
+      "RegistroDeJugadoresTicTacToe.46kjat49zq.wasm": "sha256-JLVF+XcYjBaryhv2/tlkhX84nhmf4Fsr5KGq+oM9JJA="
     },
     "pdb": {
-      "RegistroDeJugadoresTicTacToe.0iegvoflvw.pdb": "sha256-aLyBkxfKuXdYqEcKjdK2RUffT/JpkePltDRjV/C0jFs="
+      "RegistroDeJugadoresTicTacToe.oywtoi3nzj.pdb": "sha256-4COQgK1IWmCYdBHHLiVBRgddzGo4BYKG0oHLNro6E2k="
     }
   },
   "cacheBootResources": true,
