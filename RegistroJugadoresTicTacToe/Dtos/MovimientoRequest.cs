@@ -2,7 +2,7 @@ namespace RegistroJugadoresTicTacToe.Shared.Dtos;
 
 public record MovimientoRequest(
     int partidaId,
-    int jugadorId,
+    string Jugador,
     int posicionFila,
     int posicionColumna
     );

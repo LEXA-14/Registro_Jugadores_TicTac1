@@ -38,60 +38,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 9,
+          "SelectedChildIndex": 8,
           "Children": [
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "NavMenu.razor",
-              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
-              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
-              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
-              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-27T01:06:48.812Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Imports.razor",
-              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\_Imports.razor",
-              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\_Imports.razor",
-              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\_Imports.razor",
-              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\_Imports.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-27T01:04:38.775Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "MovimientoApiService.cs",
-              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
-              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
-              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
-              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-27T00:33:20.903Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "IMovimientosServices.cs",
-              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
-              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
-              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
-              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-26T19:02:27.877Z",
-              "EditorCaption": ""
-            },
             {
               "$type": "Bookmark",
               "Name": "ST:2:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
@@ -105,8 +53,52 @@
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "NavMenu.razor",
+              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
+              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
+              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
+              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Layout\\NavMenu.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-27T01:06:48.812Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "_Imports.razor",
+              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\_Imports.razor",
+              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\_Imports.razor",
+              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\_Imports.razor",
+              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\_Imports.razor",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-27T01:04:38.775Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "MovimientoApiService.cs",
+              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
+              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
+              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
+              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Services\\MovimientoApiService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-27T00:33:20.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "IMovimientosServices.cs",
+              "DocumentMoniker": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
+              "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
+              "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
+              "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Services\\IMovimientosServices.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAABOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-26T19:02:27.877Z"
             },
             {
               "$type": "Document",
@@ -128,7 +120,7 @@
               "RelativeDocumentMoniker": "RegistroDeJugadoresTicTacToe\\Pages\\PartidasModal.razor",
               "ToolTip": "C:\\Programacion Aplicada1\\Registro_Jugadadores_TicTac1SLN\\RegistroDeJugadoresTicTacToe\\Pages\\PartidasModal.razor",
               "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Pages\\PartidasModal.razor",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADMAAAAAAAAAAAAAAIIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2025-10-24T23:41:50.739Z",
               "EditorCaption": ""
@@ -143,8 +135,11 @@
               "RelativeToolTip": "RegistroDeJugadoresTicTacToe\\Pages\\TicTacToeComponent.razor",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMBAAAPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T23:41:45.492Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-10-24T23:41:45.492Z"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:1:0:{d212f56b-c48a-434c-a121-1c5d80b59b9f}"
             }
           ]
         }

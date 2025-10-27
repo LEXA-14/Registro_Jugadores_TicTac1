@@ -1080,10 +1080,10 @@ C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTic
 C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\refint\RegistroDeJugadoresTicTacToe.dll
 C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\RegistroDeJugadoresTicTacToe.pdb
 C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\ref\RegistroDeJugadoresTicTacToe.dll
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.4hezeae2ro.wasm
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.bav94ieghj.pdb
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.4hezeae2ro.wasm.gz
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.bav94ieghj.pdb.gz
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\60zpeq2u0x-4hezeae2ro.gz
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\emfxj72hiu-bav94ieghj.gz
-C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\elrg0f0g72-2zc0cyh237.gz
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.s99hq4lw0b.wasm
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.0iegvoflvw.pdb
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.s99hq4lw0b.wasm.gz
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\bin\Debug\net9.0\wwwroot\_framework\RegistroDeJugadoresTicTacToe.0iegvoflvw.pdb.gz
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\60zpeq2u0x-s99hq4lw0b.gz
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\emfxj72hiu-0iegvoflvw.gz
+C:\Programacion Aplicada1\Registro_Jugadadores_TicTac1SLN\RegistroDeJugadoresTicTacToe\obj\Debug\net9.0\compressed\elrg0f0g72-ikpv3sennc.gz
