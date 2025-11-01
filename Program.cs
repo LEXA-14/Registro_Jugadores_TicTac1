@@ -31,8 +31,10 @@ builder.Services.AddScoped<MovimientosServices>();
 //inyeccion de JuegosServicios 
 builder.Services.AddScoped<JuegosServices>();
 
+builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://gestionhuacalesapi.azurewebsites.net/") });
 
-            var app = builder.Build();
+
+var app = builder.Build();
 
 
             // Configure the HTTP request pipeline.
