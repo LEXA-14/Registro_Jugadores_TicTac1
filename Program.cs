@@ -18,18 +18,22 @@ var builder = WebApplication.CreateBuilder(new WebApplicationOptions
 builder.Services.AddRazorComponents()
                 .AddInteractiveServerComponents();
 
-            //constructor para el contexto
+           
             var ConStr = builder.Configuration.GetConnectionString("SqlConstr");
-            //contexto 
+        
             builder.Services.AddDbContextFactory<contexto>(o => o.UseSqlServer(ConStr));
-            //inyeccion
+         
             builder.Services.AddScoped<JugadoresServicios>();
-           //inyeccion de partidas services
+          
         builder.Services.AddScoped<PartidasServices>();
-//inyeccion de movimientos services
+
 builder.Services.AddScoped<MovimientosServices>();
-//inyeccion de JuegosServicios 
+
 builder.Services.AddScoped<JuegosServices>();
+
+
+builder.Services.AddScoped<PartidasApiServices>();
+builder.Services.AddScoped<MovimientosApiService>();
 
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://gestionhuacalesapi.azurewebsites.net/") });
 
